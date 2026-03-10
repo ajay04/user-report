@@ -1,11 +1,14 @@
 # GitHub Repository Users Scripts
 
-This folder contains two Bash scripts to list contributor usernames from GitHub repositories.
+This folder contains five Bash scripts for GitHub repository/user lookup.
 
 ## Files
 
 - `get_github_repo_users.sh`: Get users from a public repository.
 - `get_github_private_repo_users.sh`: Get users from a private repository.
+- `get_github_org_repos.sh`: Get all repositories for an organization.
+- `get_github_owner_repos.sh`: Get all repositories for a GitHub owner/user account.
+- `get_github_owner_repos_with_users.sh`: Get all owner repositories and contributor users per repository.
 
 ## Prerequisites
 
@@ -18,6 +21,9 @@ This folder contains two Bash scripts to list contributor usernames from GitHub 
 ```bash
 chmod +x get_github_repo_users.sh
 chmod +x get_github_private_repo_users.sh
+chmod +x get_github_org_repos.sh
+chmod +x get_github_owner_repos.sh
+chmod +x get_github_owner_repos_with_users.sh
 ```
 
 ## 1) Public Repository Script
@@ -58,6 +64,73 @@ Notes:
 - Token is required for private repos.
 - Script accepts token from argument 2 or `GITHUB_TOKEN` environment variable.
 
+## 3) Organization Repositories Script
+
+### Usage
+
+```bash
+./get_github_org_repos.sh <org> [token]
+```
+
+### Examples
+
+```bash
+./get_github_org_repos.sh github
+./get_github_org_repos.sh my-org ghp_xxxxxxxxxxxx
+GITHUB_TOKEN=ghp_xxxxxxxxxxxx ./get_github_org_repos.sh my-org
+```
+
+Notes:
+- Without a token, only public org repositories are returned.
+- With a token and proper org/repo access, private repositories can be included.
+
+## 4) Owner Repositories Script
+
+### Usage
+
+```bash
+./get_github_owner_repos.sh <owner> [token]
+```
+
+### Examples
+
+```bash
+./get_github_owner_repos.sh octocat
+./get_github_owner_repos.sh my-user ghp_xxxxxxxxxxxx
+GITHUB_TOKEN=ghp_xxxxxxxxxxxx ./get_github_owner_repos.sh my-user
+```
+
+Notes:
+- Without a token, only public repositories are returned.
+- Private repositories are included only when the token belongs to the same owner account.
+
+## 5) Owner Repositories With Users Script
+
+### Usage
+
+```bash
+./get_github_owner_repos_with_users.sh <owner> [token]
+```
+
+### Examples
+
+```bash
+./get_github_owner_repos_with_users.sh octocat
+./get_github_owner_repos_with_users.sh my-user ghp_xxxxxxxxxxxx
+GITHUB_TOKEN=ghp_xxxxxxxxxxxx ./get_github_owner_repos_with_users.sh my-user
+```
+
+Output format:
+
+```text
+owner/repo<TAB>username
+```
+
+Notes:
+- This script first fetches owner repositories, then fetches contributors for each repository.
+- Repositories with no contributors produce no output lines.
+- If the token is invalid, the script falls back to public API access and prints a warning.
+
 ## How To Generate A GitHub Token
 
 Use a Personal Access Token (PAT).
@@ -74,6 +147,7 @@ Use a Personal Access Token (PAT).
    - Choose only the repositories you need.
 7. Set permissions:
    - For private repo read access, grant read permissions for repository contents/metadata.
+   - For organization-level private repos, ensure the token is authorized for that organization and has required repository access.
    - For classic token, `repo` scope is typically required.
 8. Generate token and copy it immediately (GitHub shows it once).
 
