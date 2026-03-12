@@ -15,8 +15,8 @@ Arguments:
   token        Optional GitHub personal access token to increase rate limits
 
 Examples:
-  ./get_github_repo_users.sh torvalds/linux
-  ./get_github_repo_users.sh torvalds/linux ghp_xxxxxxxxxxxxxxxxxxxx
+  ./get_github_repo_users.sh amashfak2020/user-report
+  ./get_github_repo_users.sh amashfak2020/user-report github_pat_xxxxxxxxxxxxxxxxxxxx
 
 Notes:
   - Uses the GitHub contributors API.

@@ -15,8 +15,8 @@ Arguments:
   token        GitHub personal access token (optional if GITHUB_TOKEN is set)
 
 Examples:
-  ./get_github_private_repo_users.sh my-org/my-private-repo ghp_xxxxxxxxxxxx
-  GITHUB_TOKEN=ghp_xxxxxxxxxxxx ./get_github_private_repo_users.sh my-org/my-private-repo
+  ./get_github_private_repo_users.sh amashfak2020/user-report github_pat_xxxxxxxxxxxx
+  GITHUB_TOKEN=github_pat_xxxxxxxxxxxx ./get_github_private_repo_users.sh amashfak2020/user-report
 
 Required token scopes:
   - Fine-grained token: Read access to "Contents" for the target repo

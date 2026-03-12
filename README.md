@@ -41,8 +41,8 @@ chmod +x export_owner_repo_users_csv.sh
 ### Examples
 
 ```bash
-./get_github_repo_users.sh torvalds/linux
-./get_github_repo_users.sh microsoft/vscode ghp_xxxxxxxxxxxxxxxxxxxx
+./get_github_repo_users.sh amashfak2020/user-report
+./get_github_repo_users.sh amashfak2020/user-report github_pat_xxxxxxxxxxxxxxxxxxxx
 ```
 
 Notes:
@@ -60,8 +60,8 @@ Notes:
 ### Examples
 
 ```bash
-./get_github_private_repo_users.sh my-org/my-private-repo ghp_xxxxxxxxxxxx
-GITHUB_TOKEN=ghp_xxxxxxxxxxxx ./get_github_private_repo_users.sh my-org/my-private-repo
+./get_github_private_repo_users.sh amashfak2020/user-report github_pat_xxxxxxxxxxxx
+GITHUB_TOKEN=github_pat_xxxxxxxxxxxx ./get_github_private_repo_users.sh amashfak2020/user-report
 ```
 
 Notes:
@@ -79,9 +79,9 @@ Notes:
 ### Examples
 
 ```bash
-./get_github_org_repos.sh github
-./get_github_org_repos.sh my-org ghp_xxxxxxxxxxxx
-GITHUB_TOKEN=ghp_xxxxxxxxxxxx ./get_github_org_repos.sh my-org
+./get_github_org_repos.sh amashfak2020
+./get_github_org_repos.sh amashfak2020 github_pat_xxxxxxxxxxxx
+GITHUB_TOKEN=github_pat_xxxxxxxxxxxx ./get_github_org_repos.sh amashfak2020
 ```
 
 Notes:
@@ -162,19 +162,19 @@ Output format:
 ### Usage
 
 ```bash
-./export_owner_repo_users_csv.sh <owner> [token] [output_csv]
+./export_owner_repo_users_csv.sh <org> [token] [output_csv]
 ```
 
 ### Examples
 
 ```bash
-./export_owner_repo_users_csv.sh octocat
-./export_owner_repo_users_csv.sh my-user github_pat_xxxxx report.csv
-GITHUB_TOKEN=github_pat_xxxxx ./export_owner_repo_users_csv.sh my-user '' ./report.csv
+./export_owner_repo_users_csv.sh amashfak2020
+./export_owner_repo_users_csv.sh amashfak2020 github_pat_xxxxx report.csv
+GITHUB_TOKEN=github_pat_xxxxx ./export_owner_repo_users_csv.sh amashfak2020 '' ./report.csv
 ```
 
 Notes:
-- This wrapper combines `get_github_owner_repos.sh` and `get_github_repo_users.sh`.
+- This wrapper combines `get_github_org_repos.sh` and `get_github_repo_users.sh`.
 - `repository` column is unique (one row per repository).
 - Additional contributors are exported as columns: `user_1`, `user_2`, `user_3`, ...
 

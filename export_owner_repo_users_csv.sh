@@ -5,21 +5,21 @@ set -euo pipefail
 usage() {
   cat <<'EOF'
 Usage:
-  ./export_owner_repo_users_csv.sh <owner> [token] [output_csv]
+  ./export_owner_repo_users_csv.sh <org> [token] [output_csv]
 
 Description:
-  Combines existing scripts to fetch owner repositories and corresponding users,
+  Combines existing scripts to fetch organization repositories and corresponding users,
   then exports them to CSV with one unique repository row.
 
 Arguments:
-  owner       GitHub owner/user (required)
+  org         GitHub organization (required)
   token       Optional GitHub token (or set GITHUB_TOKEN)
-  output_csv  Output CSV path (default: owner_repo_users.csv)
+  output_csv  Output CSV path (default: org_repo_users.csv)
 
 Examples:
-  ./export_owner_repo_users_csv.sh octocat
-  ./export_owner_repo_users_csv.sh my-user github_pat_xxxxx report.csv
-  GITHUB_TOKEN=github_pat_xxxxx ./export_owner_repo_users_csv.sh my-user '' ./report.csv
+  ./export_owner_repo_users_csv.sh amashfak2020
+  ./export_owner_repo_users_csv.sh amashfak2020 github_pat_xxxxx report.csv
+  GITHUB_TOKEN=github_pat_xxxxx ./export_owner_repo_users_csv.sh amashfak2020 '' ./report.csv
 
 Output columns:
   repository,user_1,user_2,...
@@ -36,18 +36,18 @@ if [[ $# -lt 1 || $# -gt 3 ]]; then
   exit 1
 fi
 
-owner="$1"
+org="$1"
 cli_token="${2:-}"
 token="${cli_token:-${GITHUB_TOKEN:-}}"
-out_file="${3:-owner_repo_users.csv}"
+out_file="${3:-org_repo_users.csv}"
 
-if [[ -z "$owner" ]]; then
-  echo "Error: owner is required" >&2
+if [[ -z "$org" ]]; then
+  echo "Error: org is required" >&2
   exit 1
 fi
 
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-repos_script="${script_dir}/get_github_owner_repos.sh"
+repos_script="${script_dir}/get_github_org_repos.sh"
 users_script="${script_dir}/get_github_repo_users.sh"
 
 if [[ ! -f "$repos_script" ]]; then
@@ -68,9 +68,9 @@ escape_csv_field() {
 
 run_repos_script() {
   if [[ -n "$token" ]]; then
-    "$repos_script" "$owner" "$token"
+    "$repos_script" "$org" "$token"
   else
-    "$repos_script" "$owner"
+    "$repos_script" "$org"
   fi
 }
 

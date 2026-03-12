@@ -16,9 +16,9 @@ Arguments:
               You can also use GITHUB_TOKEN.
 
 Examples:
-  ./get_github_org_repos.sh github
-  ./get_github_org_repos.sh my-org ghp_xxxxxxxxxxxx
-  GITHUB_TOKEN=ghp_xxxxxxxxxxxx ./get_github_org_repos.sh my-org
+  ./get_github_org_repos.sh amashfak2020
+  ./get_github_org_repos.sh amashfak2020 github_pat_xxxxxxxxxxxx
+  GITHUB_TOKEN=github_pat_xxxxxxxxxxxx ./get_github_org_repos.sh amashfak2020
 
 Notes:
   - Without a token, only public repositories are returned.
